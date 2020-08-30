@@ -1,36 +1,31 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Place
+import pprint
+import copy
 
 
 def index(request):
-    value = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.62, 55.793676]
-          },
-          "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "/static/places/moscow_legends.json",
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "/static/places/roofs24.json",
-          }
-        }
-      ]
-    }
-    data = {'value': value}
-    return render(request, 'index.html', context=data)
+    places = Place.objects.all()
+    places_geojson = {"type": "FeatureCollection", "features": []}
+    place_feature = {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [None, None]
+                        },
+                        "properties": {
+                            "title": None,
+                            "placeId": "moscow_legends",
+                            "detailsUrl": "/static/places/moscow_legends.json",
+                        }
+                    }
+    for place in places:
+        temp_feature = copy.deepcopy(place_feature)
+        temp_feature['geometry']['coordinates'][0] = place.lng
+        temp_feature['geometry']['coordinates'][1] = place.lat
+        temp_feature['properties']['title'] = place.title
+        places_geojson['features'].append(temp_feature)
+
+    context = {'value': places_geojson}
+    return render(request, 'index.html', context=context)
