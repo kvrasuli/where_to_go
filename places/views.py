@@ -15,8 +15,8 @@ def index(request):
     }
     for place in places:
         temp_feature = copy.deepcopy(place_feature)
-        temp_feature['geometry']['coordinates'][0] = place.lng
-        temp_feature['geometry']['coordinates'][1] = place.lat
+        temp_feature['geometry']['coordinates'][0] = place.longitude
+        temp_feature['geometry']['coordinates'][1] = place.latitude
         temp_feature['properties']['title'] = place.title
         temp_feature['properties']['placeId'] = place.id
         temp_feature['properties']['detailsUrl'] = reverse('api', args=[place.id])
@@ -35,7 +35,7 @@ def api(request, place_id):
         "imgs": imgs,
         "description_short": place.description_short,
         "description_long": place.description_long,
-        "coordinates": {"lng": place.lng, "lat": place.lat}
+        "coordinates": {"lng": place.longitude, "lat": place.latitude}
     }
     return JsonResponse(
         place_params,
