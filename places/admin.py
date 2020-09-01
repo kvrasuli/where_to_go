@@ -6,7 +6,7 @@ from adminsortable2.admin import SortableInlineAdminMixin
 
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
-    extra = 3 # even without it there is no position numbers displayed
+    extra = 3  # even without it there is no position numbers displayed
     readonly_fields = ('preview_img',)
     fields = ('image', 'preview_img')
 
@@ -17,7 +17,6 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
             obj.image.width,
             obj.image.height,
         )
-
 
 
 @admin.register(Place)
