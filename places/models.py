@@ -20,6 +20,7 @@ class Image(models.Model):
         null=True
     )
     image = models.ImageField(upload_to='media/')
+    position = models.PositiveIntegerField(null=True, unique=True)
 
     def __str__(self):
         return f'{self.id}. {self.title}'
