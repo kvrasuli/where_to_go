@@ -16,7 +16,7 @@ class Place(models.Model):
 class Image(models.Model):
     title = models.ForeignKey(
         Place,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         default=None,
         null=True
     )
