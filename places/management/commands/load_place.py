@@ -23,15 +23,11 @@ class Command(BaseCommand):
             longitude=new_place['coordinates']['lng'],
         )
         if created:
-            for pic_name, image_url in enumerate(new_place['imgs']):
+            for pic_number, image_url in enumerate(new_place['imgs']):
                 response = requests.get(image_url)
                 response.raise_for_status()
-
-                with open(f'media/{pic_name}.jpg', 'wb') as image:
-                    image.write(response.content)
-
                 image = Image.objects.create(title=place)
-                image.image.save(f'media/{pic_name}.jpg', ContentFile(response.content), save=True)
+                image.image.save(f'{place.title}_{pic_number}.jpg', ContentFile(response.content), save=True)
             self.stdout.write(f'New place {place.title} has been loaded!')
         else:
             self.stdout.write(f'The place {place.title} already exists!')
