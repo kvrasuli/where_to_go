@@ -6,8 +6,8 @@ class Place(models.Model):
     title = models.CharField(max_length=255)
     description_short = models.TextField()
     description_long = HTMLField()
-    latitude = models.DecimalField(max_digits=9, decimal_places=3)
-    longitude = models.DecimalField(max_digits=9, decimal_places=3)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
     def __str__(self):
         return self.title
