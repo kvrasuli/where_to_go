@@ -11,6 +11,11 @@ Then use `pip` (or `pip3`, if there is a conflict with Python2) to install depen
 ```
 pip3 install -r requirements.txt
 ```
+Create environment variables:
+```
+SECRET_KEY=[django secret key]
+DEBUG=[True or False]
+```
 Run the Django development server:
 ```
 python manage.py runserver
