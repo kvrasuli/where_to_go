@@ -22,8 +22,8 @@ python manage.py runserver
 ```
 Open https://127.0.0.1:8000 in your browser.
 
-### How to edit data or fill the app database with new data using the admin site
-- Open the admin site at https://127.0.0.1:8000/admin/
+### How to edit data or fill the app database with naew data using the admin site
+- Open the admin site at https://127.0.0.1:8000/admin/places/place/
 - Enter admin username and password (available on request)
 - Click on "Places"
 - Click on "Add place" in the upper right corner or choose an existing place
