@@ -4,6 +4,7 @@
 
 ### What it looks like
 This app is deployed at https://rasuli.pythonanywhere.com. Check it out!
+The data were taken from [KudaGo](https://kudago.com/).
 
 ### How to run
 Python3 should be already installed. 
