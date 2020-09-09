@@ -17,7 +17,7 @@ python manage.py runserver
 ```
 Open https://127.0.0.1:8000 in your browser.
 
-### How to edit data or fill the app database with new data
+### How to edit data or fill the app database with new data using the admin site
 - Open the admin site at https://127.0.0.1:8000/admin/
 - Enter admin username and password (available on request)
 - Click on "Places"
@@ -25,6 +25,12 @@ Open https://127.0.0.1:8000 in your browser.
 - Fill/edit the fields, upload photos
 - Drug'n'drop the photo's fields to choose the order
 - Click "Save"
+
+### How to add new places using a console command
+- Run the following command
+```
+python3 manage.py load_place [link to the new place json file]
+```
 
 ### Project Goals
 
