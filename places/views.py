@@ -2,26 +2,23 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from .models import Place, Image
-import copy
 
 
 def index(request):
     places = Place.objects.all()
     places_geojson = {"type": "FeatureCollection", "features": []}
-    place_feature = {
-        "type": "Feature",
-        "geometry": {"type": "Point", "coordinates": [None, None]},
-        "properties": {"title": None, "placeId": None, "detailsUrl": None}
-    }
     for place in places:
-        temp_feature = copy.deepcopy(place_feature)
-        temp_feature['geometry']['coordinates'][0] = place.longitude
-        temp_feature['geometry']['coordinates'][1] = place.latitude
-        temp_feature['properties']['title'] = place.title
-        temp_feature['properties']['placeId'] = place.id
-        temp_feature['properties']['detailsUrl'] = reverse('api', args=[place.id])
-        places_geojson['features'].append(temp_feature)
-
+        places_geojson['features'].append({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [place.longitude, place.latitude]
+            },
+            "properties": {
+                "title": place.title, "placeId": place.id,
+                "detailsUrl": reverse('api', args=[place.id])
+            }
+        })
     context = {'value': places_geojson}
     return render(request, 'index.html', context=context)
 
