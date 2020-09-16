@@ -25,7 +25,7 @@ def index(request):
 
 def api(request, place_id):
     place = get_object_or_404(Place, id=place_id)
-    images = Image.objects.filter(title=place)
+    images = place.images.all()
     imgs = [image.image.url for image in images]
     place_params = {
         "title": place.title,
