@@ -19,7 +19,8 @@ class Image(models.Model):
         on_delete=models.CASCADE,
         default=None,
         null=True,
-        verbose_name='Название'
+        verbose_name='Название',
+        related_name='images'
     )
     image = models.ImageField(upload_to='media/', verbose_name='Изображение')
     position = models.PositiveIntegerField(
