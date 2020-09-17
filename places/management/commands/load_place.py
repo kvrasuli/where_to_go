@@ -5,7 +5,7 @@ import requests
 
 
 class Command(BaseCommand):
-    help = ''
+    help = 'Load a place ftom a json file'
 
     def add_arguments(self, parser):
         parser.add_argument('json', help='Place json url')
@@ -22,12 +22,16 @@ class Command(BaseCommand):
             latitude=new_place['coordinates']['lat'],
             longitude=new_place['coordinates']['lng'],
         )
+        for pic_number, image_url in enumerate(new_place['imgs']):
+            response = requests.get(image_url)
+            response.raise_for_status()
+            image = Image.objects.create(place=place)
+            image.image.save(
+                f'{place.title}_{pic_number}.jpg',
+                ContentFile(response.content),
+                save=True
+            )
         if created:
-            for pic_number, image_url in enumerate(new_place['imgs']):
-                response = requests.get(image_url)
-                response.raise_for_status()
-                image = Image.objects.create(title=place)
-                image.image.save(f'{place.title}_{pic_number}.jpg', ContentFile(response.content), save=True)
             self.stdout.write(f'New place {place.title} has been loaded!')
         else:
             self.stdout.write(f'The place {place.title} already exists!')
