@@ -32,6 +32,6 @@ class Command(BaseCommand):
                 save=True
             )
         if created:
-            self.stdout.write(f'New place {place.title} has been loaded!')
+            self.stdout.write(f'New place {place.title} has been loaded.')
         else:
-            self.stdout.write(f'The place {place.title} already exists!')
+            self.stdout.write(f'The place {place.title} already exists, photos have been added.')
