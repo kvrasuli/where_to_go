@@ -22,7 +22,7 @@ class Image(models.Model):
         verbose_name='Название',
         related_name='images'
     )
-    image = models.ImageField(upload_to='media/', verbose_name='Изображение')
+    image = models.ImageField(upload_to='', verbose_name='Изображение')
     position = models.PositiveIntegerField(
         default=0, verbose_name='Позиция в списке'
     )
