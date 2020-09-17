@@ -24,8 +24,7 @@ class Image(models.Model):
     )
     image = models.ImageField(upload_to='media/', verbose_name='Изображение')
     position = models.PositiveIntegerField(
-        default=0, blank=False, null=False,
-        verbose_name='Позиция в списке'
+        default=0, verbose_name='Позиция в списке'
     )
 
     class Meta(object):
