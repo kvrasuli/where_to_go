@@ -7,8 +7,8 @@ from adminsortable2.admin import SortableInlineAdminMixin
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     extra = 3  # even without it there is no position numbers displayed
-    readonly_fields = ('preview_img',)
-    fields = ('image', 'preview_img')
+    readonly_fields = ['preview_img']
+    fields = ['image', 'preview_img']
 
     def preview_img(self, obj):
         try:
@@ -22,4 +22,4 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    inlines = [ImageInline, ]
+    inlines = [ImageInline]
