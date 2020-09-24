@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from places.models import Image, Place
 import requests
+import os
 
 
 class Command(BaseCommand):
@@ -22,6 +23,14 @@ class Command(BaseCommand):
             latitude=new_place['coordinates']['lat'],
             longitude=new_place['coordinates']['lng'],
         )
+
+        image_files = os.listdir('media/')
+        for image in image_files:
+            if image.startswith(place.title.replace(' ', '_')):
+                os.remove(f'media/{image}')
+        old_images_in_db = Image.objects.filter(place=place)
+        old_images_in_db.delete()
+
         for pic_number, image_url in enumerate(new_place['imgs']):
             response = requests.get(image_url)
             response.raise_for_status()
@@ -34,4 +43,6 @@ class Command(BaseCommand):
         if created:
             self.stdout.write(f'New place {place.title} has been loaded.')
         else:
-            self.stdout.write(f'The place {place.title} already exists, photos have been added.')
+            self.stdout.write(
+                f'The place {place.title} already exists, all photos have been replaced.'
+            )
