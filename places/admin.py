@@ -11,13 +11,10 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     fields = ['image', 'preview_img']
 
     def preview_img(self, obj):
-        try:
-            return format_html(
-                '<img style="max-width: 200px;" src="{}"/>',
-                obj.image.url,
-            )
-        except ValueError:
-            return format_html('<p>Preview is not available by now.</p>')
+        preview = '<p>Preview is not available by now.</p>'
+        if obj.image:
+            preview = f'<img style="max-width: 200px;" src="{obj.image.url}"/>'
+        return format_html(preview)
 
 
 @admin.register(Place)
